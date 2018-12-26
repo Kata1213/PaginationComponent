@@ -1,0 +1,15 @@
+.main {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 20px;
+}
+
+.main li {
+    list-style: none;
+    width: 40px;
+    height: 40px;
+    border: 1px solid;
+    text-align: center;
+    cursor: pointer;
+}
