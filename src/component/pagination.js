@@ -22,6 +22,10 @@ export default class Pagination extends Component {
 
         pageList.push(<li className={current === total ? "forbiddenStyle" : "activeStyle"}> &gt; </li>)
 
+        pageList.push(<li id="goto"> Goto </li>)
+
+        pageList.push(<input className="input"/>)
+
         return pageList;
     }
 
