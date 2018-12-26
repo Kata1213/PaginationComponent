@@ -5,7 +5,7 @@ export default class Pagination extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            current: 1,
+            current: 5,
             total: 5,
         }
     }
@@ -19,6 +19,8 @@ export default class Pagination extends Component {
         for (let i = 1; i <= total; i++) {
             pageList.push(<li>{i}</li>)
         }
+
+        pageList.push(<li className={current === total ? "forbiddenStyle" : "activeStyle"}> &gt; </li>)
 
         return pageList;
     }
