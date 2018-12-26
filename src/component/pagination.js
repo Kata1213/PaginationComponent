@@ -11,11 +11,15 @@ export default class Pagination extends Component {
     }
 
     createPaginationComponent() {
-        const {total} = this.state;
+        const {current, total} = this.state;
         let pageList = [];
+
+        pageList.push(<li className={current === 1 ? "forbiddenStyle" : "activeStyle"}> &lt; </li>)
+
         for (let i = 1; i <= total; i++) {
             pageList.push(<li>{i}</li>)
         }
+
         return pageList;
     }
 
