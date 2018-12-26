@@ -7,29 +7,39 @@ export default class Pagination extends Component {
         this.state = {
             current: 1,
             total: 50,
-            group:5,
+            group: 5,
         }
     }
 
     createPaginationComponent() {
-        const {current, total,group} = this.state;
+        const {current, total, group} = this.state;
         let pageList = [];
 
-        pageList.push(<li className={current === 1 ? "forbiddenStyle" : "activeStyle"}> &lt; </li>)
+        if (total < 1) {
+            return null;
+        } else if (total === 1) {
+            return (<li>1</li>)
+        } else if (total < group) {
+            pageList.push(<li className={current === 1 ? "forbiddenStyle" : "activeStyle"}> &lt; </li>)
+            for (let i = 1; i <= total; i++) {
+                pageList.push(<li>{i}</li>)
+            }
+        } else {
+            pageList.push(<li className={current === 1 ? "forbiddenStyle" : "activeStyle"}> &lt; </li>)
+            for (let i = 1; i <= group && i <= total; i++) {
+                pageList.push(<li>{i}</li>)
+                console.log(i);
+            }
 
-        pageList.push(<li>{current}</li>)
-        pageList.push(<li id="ellipsis">...</li>)
-        for(let i =current+3 ; i<current+3+group;i++){
-            pageList.push(<li>{i}</li>)
+            if (total > group + 1) {
+                pageList.push(<li id="ellipsis">...</li>)
+            }
+            pageList.push(<li>{total}</li>)
+            pageList.push(<li className={current === total ? "forbiddenStyle" : "activeStyle"}> &gt; </li>)
+            pageList.push(<li id="goto"> Goto </li>)
+            pageList.push(<input className="input"/>)
+
         }
-        pageList.push(<li id="ellipsis">...</li>)
-        pageList.push(<li>{total}</li>)
-
-        pageList.push(<li className={current === total ? "forbiddenStyle" : "activeStyle"}> &gt; </li>)
-
-        pageList.push(<li id="goto"> Goto </li>)
-
-        pageList.push(<input className="input"/>)
 
         return pageList;
     }
