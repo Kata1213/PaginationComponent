@@ -5,7 +5,7 @@ export default class Pagination extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            current: 35,
+            current: 5,
             total: 40,
             group: 5,
         }
@@ -20,20 +20,23 @@ export default class Pagination extends Component {
         } else if (total === 1) {
             pageList.push(<li>1</li>)
         } else if (total <= group) {
-            pageList.push(<li className={current === 1 ? "forbiddenStyle" : "activeStyle"} onClick={this.goPre()} > &lt; </li>)
+            pageList.push(<li className={current === 1 ? "forbiddenStyle" : "activeStyle"}
+                              onClick={this.goPre()}> &lt; </li>)
             for (let i = 1; i <= total; i++) {
                 pageList.push(<li>{i}</li>)
             }
 
         } else {
-            pageList.push(<li className={current === 1 ? "forbiddenStyle" : "activeStyle"} onClick={this.goPre.bind(this)} > &lt; </li>)
+            pageList.push(<li className={current === 1 ? "forbiddenStyle" : "activeStyle"}
+                              onClick={this.goPre.bind(this)}> &lt; </li>)
             if (current !== 1) {
                 pageList.push(<li>1</li>)
                 pageList.push(<li id="ellipsis">...</li>)
             }
             let i = current;
-            for (; i < group+current && i <= total; i++) {
-                pageList.push(<li onClick={this.goTo.bind(this,i)} className={current===i?"currentSelected":""}>{i}</li>)
+            for (; i < group + current && i < total; i++) {
+                pageList.push(<li onClick={this.goTo.bind(this, i)}
+                                  className={current === i ? "currentSelected" : ""}>{i}</li>)
                 console.log(i);
             }
 
@@ -43,15 +46,32 @@ export default class Pagination extends Component {
             pageList.push(<li>{total}</li>)
 
         }
-        pageList.push(<li className={current === total ? "forbiddenStyle" : "activeStyle"} onClick={this.goNext.bind(this)}> &gt; </li>)
+        pageList.push(<li className={current === total ? "forbiddenStyle" : "activeStyle"}
+                          onClick={this.goNext.bind(this)}> &gt; </li>)
         pageList.push(<li id="goto"> Goto </li>)
-        pageList.push(<input className="input"/>)
+        pageList.push(<input className="input" onKeyUp={this.getPageValue.bind(this)}/>)
 
         return pageList;
     }
 
+
+    getPageValue(e) {
+        if (e.keyCode === 13) {
+            console.log("input= " + e.target.value)
+            let pageValue = e.target.value;
+            if (pageValue < 1) {
+                pageValue = 1
+            }
+            if (pageValue > this.state.total) {
+                pageValue = this.state.total
+            }
+            this.setState({current: pageValue})
+        }
+
+    }
+
     goTo(currentId) {
-        if (currentId > 0 && currentId<= this.state.total) {
+        if (currentId > 0 && currentId <= this.state.total) {
             this.setState({current: currentId})
         }
     }
@@ -61,20 +81,19 @@ export default class Pagination extends Component {
         this.goTo(--current);
     }
 
-    goNext(){
+    goNext() {
         let {current} = this.state;
         this.goTo(++current);
     }
 
 
     render() {
-        const {current} =this.state;
+        const {current} = this.state;
         return (
             <ul className="main">
                 {this.createPaginationComponent()}
                 {console.log("current= " + current)}
             </ul>
-
         );
     }
 }
