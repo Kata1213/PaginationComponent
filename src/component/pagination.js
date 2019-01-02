@@ -33,7 +33,7 @@ export default class Pagination extends Component {
             }
             let i = current;
             for (; i < group+current && i <= total; i++) {
-                pageList.push(<li>{i}</li>)
+                pageList.push(<li onClick={this.goTo.bind(this,i)}>{i}</li>)
                 console.log(i);
             }
 
@@ -48,6 +48,10 @@ export default class Pagination extends Component {
         pageList.push(<input className="input"/>)
 
         return pageList;
+    }
+
+    goTo(currentId){
+        this.setState({current:currentId})
     }
 
     render() {
