@@ -5,7 +5,7 @@ export default class Pagination extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            current: 5,
+            current: 35,
             total: 40,
             group: 5,
         }
@@ -20,20 +20,20 @@ export default class Pagination extends Component {
         } else if (total === 1) {
             pageList.push(<li>1</li>)
         } else if (total <= group) {
-            pageList.push(<li className={current === 1 ? "forbiddenStyle" : "activeStyle"}> &lt; </li>)
+            pageList.push(<li className={current === 1 ? "forbiddenStyle" : "activeStyle"} onClick={this.goPre()} > &lt; </li>)
             for (let i = 1; i <= total; i++) {
                 pageList.push(<li>{i}</li>)
             }
 
         } else {
-            pageList.push(<li className={current === 1 ? "forbiddenStyle" : "activeStyle"}> &lt; </li>)
+            pageList.push(<li className={current === 1 ? "forbiddenStyle" : "activeStyle"} onClick={this.goPre.bind(this)} > &lt; </li>)
             if (current !== 1) {
                 pageList.push(<li>1</li>)
                 pageList.push(<li id="ellipsis">...</li>)
             }
             let i = current;
             for (; i < group+current && i <= total; i++) {
-                pageList.push(<li onClick={this.goTo.bind(this,i)}>{i}</li>)
+                pageList.push(<li onClick={this.goTo.bind(this,i)} className={current===i?"currentSelected":""}>{i}</li>)
                 console.log(i);
             }
 
@@ -43,21 +43,36 @@ export default class Pagination extends Component {
             pageList.push(<li>{total}</li>)
 
         }
-        pageList.push(<li className={current === total ? "forbiddenStyle" : "activeStyle"}> &gt; </li>)
+        pageList.push(<li className={current === total ? "forbiddenStyle" : "activeStyle"} onClick={this.goNext.bind(this)}> &gt; </li>)
         pageList.push(<li id="goto"> Goto </li>)
         pageList.push(<input className="input"/>)
 
         return pageList;
     }
 
-    goTo(currentId){
-        this.setState({current:currentId})
+    goTo(currentId) {
+        if (currentId > 0 && currentId<= this.state.total) {
+            this.setState({current: currentId})
+        }
     }
 
+    goPre() {
+        let {current} = this.state;
+        this.goTo(--current);
+    }
+
+    goNext(){
+        let {current} = this.state;
+        this.goTo(++current);
+    }
+
+
     render() {
+        const {current} =this.state;
         return (
             <ul className="main">
                 {this.createPaginationComponent()}
+                {console.log("current= " + current)}
             </ul>
 
         );

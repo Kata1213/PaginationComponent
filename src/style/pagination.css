@@ -24,8 +24,6 @@
     cursor: text;
 }
 
-
-
 .forbiddenStyle{
     cursor: not-allowed !important;
     color: #b5b5b5!important;
@@ -33,6 +31,12 @@
 
 .activeStyle{
     cursor: pointer;
+}
+
+.currentSelected{
+    color:white;
+    background:royalblue;
+    font-weight:bold;
 }
 
 .input{
