@@ -34,9 +34,9 @@
 }
 
 .currentSelected{
-    color:white;
-    background:royalblue;
-    font-weight:bold;
+    color:white!important;
+    background:royalblue!important;
+    font-weight:bold!important;
 }
 
 .input{
