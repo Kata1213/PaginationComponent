@@ -5,16 +5,30 @@ export default class Pagination extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            current: 3,
+            current: 1,
             total: 40,
             group: 5,
         }
+
     }
 
     createPaginationComponent() {
         const {current, total, group} = this.state;
-        let startPage = current - 2;
-        let endPage = startPage + group
+        let startPage = 1;
+
+        let middlePanelStartPage = current - Math.floor(group / 2) > (startPage + 1) ? current - Math.floor(group / 2) : (startPage + 1);
+
+        let middlePanelEndPage = current + Math.floor(group / 2) < total ? current + Math.floor(group / 2) : total;
+
+
+        if (middlePanelEndPage - middlePanelStartPage !== (group - 1)) {
+            if (middlePanelStartPage === (startPage + 1)) {
+                middlePanelEndPage = group < total ? group : total;
+            } else {
+                middlePanelStartPage = middlePanelEndPage - group + 1 > 0 ? middlePanelEndPage - group + 1 : (startPage + 1)
+            }
+        }
+
         let pageList = [];
 
         if (total < 1) {
@@ -27,22 +41,14 @@ export default class Pagination extends Component {
         pageList.push(<li className={current == 1 ? "currentSelected" : ""}
                           onClick={this.goTo.bind(this, 1)}>1</li>)
 
-        if (startPage > 2) {
-            pageList.push(<li id="ellipsis">...</li>)
-            for (let j = startPage; j < endPage && j < total; j++) {
-                pageList.push(<li className={current == j ? "currentSelected" : ""}
-                                  onClick={this.goTo.bind(this, j)}>{j}</li>)
-            }
-        } else {
-            for (let i = 2; i <= group && i < total; i++) {
-                pageList.push(<li className={current == i ? "currentSelected" : ""}
-                                  onClick={this.goTo.bind(this, i)}>{i}</li>)
-            }
+        middlePanelStartPage - 1 > 1 && pageList.push(<li id="ellipsis">...</li>);
+
+        for (let i = middlePanelStartPage; i <= middlePanelEndPage && i < total; i++) {
+            pageList.push(<li className={current == i ? "currentSelected" : ""}
+                              onClick={this.goTo.bind(this, i)}>{i}</li>)
         }
 
-        if (endPage < total) {
-            pageList.push(<li id="ellipsis">...</li>)
-        }
+        middlePanelEndPage < total - 1 && pageList.push(<li id="ellipsis">...</li>);
 
         pageList.push(<li onClick={this.goTo.bind(this, total)}
                           className={current == total ? "currentSelected" : ""}>{total}</li>)
@@ -63,7 +69,7 @@ export default class Pagination extends Component {
                 if (pageValue > this.state.total) {
                     pageValue = this.state.total
                 }
-                this.setState({current: pageValue})
+                this.setState({current: Number(pageValue)});
             }
         }
     }
