@@ -1,0 +1,14 @@
+
+li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    width: 40px;
+    height: 40px;
+    border: 1px solid;
+    text-align: center;
+    cursor: pointer;
+    margin: 3px;
+}
+
