@@ -119,17 +119,17 @@ export default class Pagination extends Component {
                 if (pageValue > this.state.total) {
                     pageValue = this.state.total
                 }
-                this.setState({current: Number(pageValue)});
+                this.goTo(Number(pageValue))
             }
         }
     }
 
-    goTo=(currentId)=> {
-        console.log("currentId!!!!! =   " +currentId)
-        if(currentId>0 && currentId <= this.state.total)
-        this.setState({current: currentId})
-        this.handlePageOnChange(currentId);
-
+    goTo = (currentId) => {
+        console.log("currentId!!!!! =   " + currentId)
+        if (currentId > 0 && currentId <= this.state.total) {
+            this.setState({current: currentId})
+            this.handlePageOnChange(currentId);
+        }
     }
 
     goPre=()=> {

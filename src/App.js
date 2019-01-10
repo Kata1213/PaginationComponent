@@ -20,7 +20,10 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <div className="content"><p>Now, we are on the Page {this.state.activePage}</p></div>
+                <div className="content">
+                    <div><p>Now, we are on the </p></div>
+                    <div>Page {this.state.activePage}</div>
+                    </div>
                 <Pagination handlePageOnChange={this.handlePageOnChange}/>
             </div>
         );
