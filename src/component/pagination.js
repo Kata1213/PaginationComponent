@@ -22,8 +22,23 @@ export default class Pagination extends Component {
 
         let pageList = [];
         let startPage = 1;
-        pageList.push(<PageBox pageText="<" isForbidden={current === startPage}/>);
-        pageList.push(<PageBox pageText={startPage} isSelected={current === startPage}/>) && startPage++ ;
+
+        // pageList.push(
+        //     <PageBox
+        //         pageText="<"
+        //         isForbidden={current === startPage}
+        //         goPre = {this.goPre}
+        //     />);
+
+        pageList.push(<li className={current === 1 ? "forbiddenStyle" : "activeStyle"}
+                          onClick={this.goPre.bind(this)}> &lt; </li>)
+
+        pageList.push(
+            <PageBox
+                pageText={startPage}
+                isSelected={current === startPage}
+                goTo={this.goTo}
+            />) && startPage++ ;
 
         let middlePanelStartPage = current - Math.floor(group / 2) > (startPage) ? current - Math.floor(group / 2) : (startPage);
 
@@ -57,6 +72,7 @@ export default class Pagination extends Component {
                 <PageBox
                 isSelected={current === i}
                 pageText={i}
+                goTo={this.goTo}
                 />)
         }
 
@@ -71,13 +87,17 @@ export default class Pagination extends Component {
             <PageBox
                 isSelected={current === total}
                 pageText={total}
+                goTo={this.goTo}
             />)
 
-        pageList.push(
-            <PageBox
-                pageText=">"
-                isForbidden={current === total}
-            />)
+        // pageList.push(
+        //     <PageBox
+        //         pageText=">"
+        //         isForbidden={current === total}
+        //     />)
+
+        pageList.push(<li className={current == total ? "forbiddenStyle" : "activeStyle"}
+                          onClick={this.goNext.bind(this)}> &gt; </li>)
 
 
         pageList.push(<li id="goto"> Goto </li>)
@@ -100,10 +120,10 @@ export default class Pagination extends Component {
         }
     }
 
-    goTo(currentId) {
-        if (currentId > 0 && currentId <= this.state.total) {
-            this.setState({current: currentId})
-        }
+    goTo=(currentId)=> {
+        console.log("currentId!!!!! =   " +currentId)
+        this.setState({current: currentId})
+
     }
 
     goPre() {

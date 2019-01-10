@@ -1,0 +1,24 @@
+{
+  "testEnvironment": "node",
+  "testRegex": "(/__tests__/(.*\\.)(test|spec))\\.(js?)$",
+  "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
+  "setupTestFrameworkScriptFile": "<rootDir>/src/setupEnzyme.js",
+  "collectCoverage": true,
+  "coverageDirectory": "output/coverage/jest",
+  "collectCoverageFrom": [
+    "**/*.{ts}",
+    "!**/node_modules/**",
+    "!webpack.config.ts",
+    "!**/config/**",
+    "!**/e2e/**",
+    "!**/configureStore.ts",
+    "!**/rootReducer.ts",
+    "!**/rootSaga.ts",
+    "!**/API.ts",
+    "!**/routeConfig.ts",
+    "!**/actionTypes.ts",
+    "!**/*.d.ts",
+    "!**/fakeData.ts"
+  ],
+  "coverageReporters": ["html", "cobertura"]
+}
