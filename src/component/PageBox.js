@@ -4,33 +4,22 @@ import "../style/pageBox.css"
 export default class PageBox extends Component {
     constructor(props) {
         super(props)
-
     }
 
-    // handleGotoPre=()=>{
-    //     console.log("handleGotoPre !!!!!!!!!!!!!!!!1")
-    //     this.props.goPre();
-    // }
-    // goPre = () =>{
-    //         console.log("handleGotoPre !!!!!!!!!!!!!!!!1")
-    //         this.props.goPre();
-    // }
-
-    goTo =(pageText) => {
-        console.log("aaaaaa  goto   aaa ")
+    goTo = (pageText) => {
         this.props.goTo(pageText);
-    }
+    };
 
     render() {
-        let {pageText, isSelected, isForbidden } = this.props;
+        let {pageText, isSelected, isForbidden} = this.props;
 
         return (
             <li
-                className={isSelected? "currentSelected": isForbidden? "forbiddenStyle": ""}
+                className={isSelected ? "currentSelected" : isForbidden ? "forbiddenStyle" : ""}
                 onClick={this.goTo.bind(this, pageText)}
-            >{pageText}</li>
+            >
+                {pageText}
+            </li>
         )
     }
-
-
 }

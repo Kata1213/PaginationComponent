@@ -12,7 +12,6 @@ class App extends Component {
     }
 
     handlePageOnChange = (activePage) =>{
-        console.log("activePage= "+ activePage);
         this.setState({activePage:activePage})
     }
 
