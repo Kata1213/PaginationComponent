@@ -12,3 +12,15 @@ li {
     margin: 3px;
 }
 
+
+.forbiddenStyle{
+    cursor: not-allowed !important;
+    color: #b5b5b5!important;
+}
+
+.currentSelected{
+    color:white!important;
+    background:royalblue!important;
+    font-weight:bold!important;
+}
+

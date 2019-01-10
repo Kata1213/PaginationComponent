@@ -7,12 +7,10 @@ export default class PageBox extends Component {
     }
 
     render() {
-        let {pageText } = this.props;
+        let {pageText, isSelected, isForbidden } = this.props;
 
         return (
-            <div>
-            <li >{pageText}</li>
-            </div>
+            <li className={isSelected? "currentSelected": isForbidden? "forbiddenStyle": ""}>{pageText}</li>
         )
     }
 
