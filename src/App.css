@@ -1,3 +1,9 @@
+.content p{
+  padding: 15%;
+  font-size: 80px;
+}
+
+
 .App {
   text-align: center;
 }

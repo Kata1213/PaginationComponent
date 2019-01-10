@@ -10,7 +10,11 @@ export default class Pagination extends Component {
             total: 40,
             group: 5,
         }
+    }
 
+    handlePageOnChange = (activePage) =>{
+        console.log("page activePage = "+ activePage);
+        this.props.handlePageOnChange(activePage);
     }
 
     createPaginationComponent() {
@@ -31,7 +35,7 @@ export default class Pagination extends Component {
         //     />);
 
         pageList.push(<li className={current === 1 ? "forbiddenStyle" : "activeStyle"}
-                          onClick={this.goPre.bind(this)}> &lt; </li>)
+                          onClick={this.goPre}> &lt; </li>)
 
         pageList.push(
             <PageBox
@@ -97,7 +101,7 @@ export default class Pagination extends Component {
         //     />)
 
         pageList.push(<li className={current == total ? "forbiddenStyle" : "activeStyle"}
-                          onClick={this.goNext.bind(this)}> &gt; </li>)
+                          onClick={this.goNext}> &gt; </li>)
 
 
         pageList.push(<li id="goto"> Goto </li>)
@@ -122,16 +126,18 @@ export default class Pagination extends Component {
 
     goTo=(currentId)=> {
         console.log("currentId!!!!! =   " +currentId)
+        if(currentId>0 && currentId <= this.state.total)
         this.setState({current: currentId})
+        this.handlePageOnChange(currentId);
 
     }
 
-    goPre() {
+    goPre=()=> {
         let {current} = this.state;
         this.goTo(--current);
     }
 
-    goNext() {
+    goNext=()=> {
         let {current} = this.state;
         this.goTo(++current);
     }

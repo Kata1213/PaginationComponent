@@ -44,6 +44,7 @@
     height: 38px;
     text-align: center;
     font-size: 100%;
+    border: solid 1px;
 }
 
 #ellipsis{
