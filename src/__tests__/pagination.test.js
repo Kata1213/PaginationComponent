@@ -23,9 +23,14 @@ describe('test pagination component ', () => {
         expect(wrapper.find("li").first().text()).toEqual("<");
     });
 
-    xit('should set the < as forbidden style', function () {
+    it('should render the goto ', function () {
         const wrapper = shallow(<Pagination {...props} />);
-        expect(wrapper.find("li").first().hasClass("forbiddenStyle")).toEqual(true);
+        expect(wrapper.find('#goto').length).toBe(1)
+    });
+
+    it('should set the < as forbidden style', function () {
+        const wrapper = shallow(<Pagination {...props} />);
+        expect(wrapper.find("li").first().hasClass('forbiddenStyle')).toBe(true);
     });
 
     it('should call handlePageOnchange function when click items on the page', function () {
@@ -33,8 +38,5 @@ describe('test pagination component ', () => {
         wrapper.find("li").at(2).simulate("click");
         expect(mockHandlePageOnChange).toHaveBeenCalled();
     });
-
-
-
 
 });
