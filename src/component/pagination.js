@@ -28,6 +28,7 @@ export default class Pagination extends Component {
 
         pageList.push(
             <li
+                key={0}
                 className={current === 1 ? "forbiddenStyle" : "activeStyle"}
                 onClick={this.goPre}
             >
@@ -36,6 +37,7 @@ export default class Pagination extends Component {
 
         pageList.push(
             <PageBox
+                key={startPage}
                 pageText={startPage}
                 isSelected={current === startPage}
                 goTo={this.goTo}
@@ -54,21 +56,23 @@ export default class Pagination extends Component {
             }
         }
 
-        middlePanelStartPage - 1 > 1 && pageList.push(<li id="ellipsis">...</li>);
+        middlePanelStartPage - 1 > 1 && pageList.push(<li key={"first ellipsis"} id="ellipsis">...</li>);
 
         for (let i = middlePanelStartPage; i <= middlePanelEndPage && i < total; i++) {
             pageList.push(
                 <PageBox
+                    key={i}
                     isSelected={current === i}
                     pageText={i}
                     goTo={this.goTo}
                 />)
         }
 
-        middlePanelEndPage < total - 1 && pageList.push(<li id="ellipsis">...</li>);
+        middlePanelEndPage < total - 1 && pageList.push(<li key={"last ellipsis"} id="ellipsis">...</li>);
 
         pageList.push(
             <PageBox
+                key={total}
                 isSelected={current === total}
                 pageText={total}
                 goTo={this.goTo}
@@ -78,13 +82,14 @@ export default class Pagination extends Component {
             <li
                 className={current === total ? "forbiddenStyle" : "activeStyle"}
                 onClick={this.goNext}
+                key={total + 1}
             >
                 &gt;
             </li>);
 
 
-        pageList.push(<li id="goto"> Goto </li>);
-        pageList.push(<input className="input" onKeyUp={this.getPageValue.bind(this)}/>)
+        pageList.push(<li id="goto" key={total + 2}> Goto </li>);
+        pageList.push(<input key="input1" className="input" onKeyUp={this.getPageValue.bind(this)}/>)
         return pageList;
     }
 

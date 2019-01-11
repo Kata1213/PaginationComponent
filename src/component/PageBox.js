@@ -17,6 +17,7 @@ export default class PageBox extends Component {
             <li
                 className={isSelected ? "currentSelected" : isForbidden ? "forbiddenStyle" : ""}
                 onClick={this.goTo.bind(this, pageText)}
+                key={pageText}
             >
                 {pageText}
             </li>
