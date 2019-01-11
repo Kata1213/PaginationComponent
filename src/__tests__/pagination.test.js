@@ -23,6 +23,11 @@ describe('test pagination component ', () => {
         expect(wrapper.find("li").first().text()).toEqual("<");
     });
 
+    it('should select 1 as the selected box', function () {
+        const wrapper = mount(<Pagination {...props} />);
+        expect(wrapper.find(".currentSelected").text()).toEqual("1");
+    });
+
     it('should render the goto ', function () {
         const wrapper = shallow(<Pagination {...props} />);
         expect(wrapper.find('#goto').length).toBe(1)
@@ -37,6 +42,13 @@ describe('test pagination component ', () => {
         const wrapper = shallow(<Pagination {...props} />);
         wrapper.find("li").at(2).simulate("click");
         expect(mockHandlePageOnChange).toHaveBeenCalled();
+    });
+
+    xit('should set the input value box as currentSelected', function () {
+        const wrapper = mount(<Pagination {...props} />);
+        const input = wrapper.find('input');
+        input.simulate('keyDown',{keyCode:9});
+        expect(wrapper.find(".currentSelected").text()).toEqual("9");
     });
 
 });
